@@ -20,9 +20,10 @@ public class MainActivity extends AppCompatActivity {
         StuffAmountTextView = findViewById(R.id.stuff_amount_textview);
 
         GenerateStuffButton.setOnClickListener(v -> {
-            int stuffAmount = (int) StuffAmountTextView.getAlpha();
+            int stuffAmount;
+            stuffAmount = Integer.parseInt((String) StuffAmountTextView.getText());
             stuffAmount++;
-            StuffAmountTextView.setText(stuffAmount);
+            StuffAmountTextView.setText(String.valueOf(stuffAmount));
         });
     }
 }
