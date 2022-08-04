@@ -62,7 +62,14 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.insert(GENERATION_TABLE_NAME, null, contentValues);
         DB.insert(STATS_TABLE_NAME,null, contentValues1);
     }
+    public void resetData() {
+        SQLiteDatabase DB = this.getWritableDatabase();
 
+        DB.execSQL("drop Table if exists " + GENERATION_TABLE_NAME);
+        DB.execSQL("drop Table if exists " + STATS_TABLE_NAME);
+
+        onCreate(DB);
+    }
 
     public boolean levelUp(int Generation) {
         SQLiteDatabase DB = this.getWritableDatabase();

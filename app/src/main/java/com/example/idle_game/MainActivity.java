@@ -12,17 +12,18 @@ public class MainActivity extends AppCompatActivity {
 
     Button GenerateStuffButton;
     Button FirstGenerationButton;
+    Button ResetStatsButton;
     TextView StuffAmountTextView;
     TextView FirstGenerationLevelTextView;
 
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            int step = DBHelper.getLevel(1);
             while(true) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        int step = DBHelper.getLevel(1);
                         DBHelper.updateStuff(step);
                         StuffAmountTextView = findViewById(R.id.stuff_amount_textview);
                         StuffAmountTextView.setText(String.valueOf(DBHelper.getStuff()));
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         GenerateStuffButton = findViewById(R.id.generate_stuff_button);
         FirstGenerationButton = findViewById(R.id.first_generation_button);
+        ResetStatsButton = findViewById(R.id.reset_button);
         StuffAmountTextView = findViewById(R.id.stuff_amount_textview);
         FirstGenerationLevelTextView = findViewById(R.id.first_generation_level_textview);
 
@@ -63,5 +65,12 @@ public class MainActivity extends AppCompatActivity {
             DBHelper.levelUp(1);
             FirstGenerationLevelTextView.setText(String.valueOf(DBHelper.getLevel(1)));
         });
+
+        ResetStatsButton.setOnClickListener(v -> {
+            DBHelper.resetData();
+            StuffAmountTextView.setText("0");
+            FirstGenerationLevelTextView.setText("0");
+        });
+
     }
 }
